@@ -1,0 +1,18 @@
+{
+  "extends": "@mimiardev/dev/config/tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "paths": {
+      "@mimiar-wallet/*": ["./src/*"],
+      "@mimiardev/inject/*": ["./inject/src/*"],
+      "@mimiardev/inject": ["./inject/src"]
+    },
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  },
+  "exclude": [
+    "build/**/*",
+    "**/build/**/*",
+    "**/node_modules/**/*"
+  ],
+}
