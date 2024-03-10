@@ -26,9 +26,9 @@ MiMiar is designed to simplify account and asset management within the Polkadot 
 - Develop an SDK for direct integration with applications, starting with support for Polka.js.
 - Construct and manage transactions within Polka.js, with transaction data synchronized in MiMiar.
 
-![image](https://github.com/roadtotenk/MiMiar/assets/135639458/e27d903d-2f64-41bf-a090-0b54b95105b0)
 
-![image](https://github.com/roadtotenk/MiMiar/assets/135639458/3bd37563-1fa0-40dd-ad06-b21a1c420943)
+<img width="1434" alt="Screenshot 2024-03-11 at 1 23 38 AM" src="https://github.com/roadtotenk/MiMiar/assets/135639458/72168699-0723-470d-a1dc-95e0bc72ba6f">
 
+<img width="1434" alt="Screenshot 2024-03-11 at 1 22 46 AM" src="https://github.com/roadtotenk/MiMiar/assets/135639458/2876a0ed-2019-4e5e-a84e-d68439901cf7">
 
 
