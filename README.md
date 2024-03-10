@@ -6,6 +6,8 @@ Welcome to MiMiar, your comprehensive solution for managing accounts and assets 
 
 MiMiar is designed to simplify account and asset management within the Polkadot ecosystem. It offers a range of features to meet the needs of users, including support for flexible multi-signature accounts, nested multi-signature accounts, transaction syncing, and application integration.
 
+**Video Demonstration:** https://youtu.be/5jrvHNVJtl0
+
 ## Features
 
 ### Flexible Multi-signature Accounts
