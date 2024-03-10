@@ -1,0 +1,30 @@
+{
+  "author": "dev.mimiar",
+  "bugs": "https://github.com/mimiar-labs/mimiar-wallet/issues",
+  "description": "Inject windowInject for polkadot dapp.",
+  "homepage": "https://github.com/mimiar-labs/mimiar-wallet/tree/master/inject#readme",
+  "license": "Apache-2.0",
+  "maintainers": [],
+  "name": "@mimiardev/inject",
+  "repository": {
+    "directory": "inject",
+    "type": "git",
+    "url": "https://github.com/mimiar-labs/mimiar-wallet.git"
+  },
+  "sideEffects": true,
+  "type": "module",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "bundle": "yarn mimiar-exec-webpack --config webpack.config.cjs --mode production"
+  },
+  "devDependencies": {
+    "@mimiardev/dev": "^0.4.0",
+    "@polkadot/extension-base": "^0.46.6",
+    "@polkadot/extension-inject": "^0.46.6",
+    "@types/path-browserify": "^1",
+    "path-browserify": "^1.0.1",
+    "stream-browserify": "^3.0.0",
+    "thread-loader": "^4.0.2"
+  }
+}

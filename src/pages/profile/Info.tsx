@@ -1,0 +1,97 @@
+// Copyright 2023-2024 dev.mimiar authors & contributors
+// SPDX-License-Identifier: Apache-2.0
+
+import { ReactComponent as IconFund } from '@mimiar-wallet/assets/svg/icon-fund-fill.svg';
+import { ReactComponent as IconSend } from '@mimiar-wallet/assets/svg/icon-send-fill.svg';
+import { ReactComponent as IconSet } from '@mimiar-wallet/assets/svg/icon-set.svg';
+import { FormatBalance } from '@mimiar-wallet/components';
+import { useAddressMeta, useTokenInfo } from '@mimiar-wallet/hooks';
+import { Box, Button, Divider, Paper, Stack, SvgIcon, Typography } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
+import { BN } from '@polkadot/util';
+import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
+
+import { AccountBalance } from './types';
+
+function Info({ address, balances, toggleFundOpen }: { address?: string; balances?: AccountBalance; toggleFundOpen: () => void }) {
+  const { meta } = useAddressMeta(address);
+  const [tokenInfo] = useTokenInfo();
+
+  const [total, transferrable, locked, reserved] = useMemo(() => {
+    const price = tokenInfo?.[Object.keys(tokenInfo)[0]]?.price || '0';
+
+    const priceBN = new BN(Math.ceil(Number(price) * 1e6));
+
+    return [balances?.total.mul(priceBN).divn(1e6), balances?.transferrable.mul(priceBN).divn(1e6), balances?.locked.mul(priceBN).divn(1e6), balances?.reserved.mul(priceBN).divn(1e6)];
+  }, [balances, tokenInfo]);
+
+  const changes = Number(tokenInfo?.[Object.keys(tokenInfo)[0]]?.price_change || '0');
+
+  return (
+    <Paper sx={{ width: '100%', height: 'auto', borderRadius: 2, padding: 2 }}>
+      <Stack spacing={2}>
+        <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', flexWrap: { lg: 'nowrap', xs: 'wrap' } }}>
+          <Typography sx={{ flex: '1', whiteSpace: 'nowrap' }} variant='h1'>
+            <FormatBalance label='$' value={total} withCurrency={false} />
+            <Box component='span' sx={{ marginLeft: 0.5, verticalAlign: 'middle', color: changes > 0 ? 'success.main' : changes < 0 ? 'error.main' : 'grey.500' }}>
+              {(changes * 100).toFixed(2)}%
+            </Box>
+          </Typography>
+          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+            <Button component={Link} endIcon={<SvgIcon component={IconSend} inheritViewBox />} to='/transfer'>
+              Transfer
+            </Button>
+            <Button endIcon={<SvgIcon component={IconFund} inheritViewBox />} onClick={toggleFundOpen} variant='outlined'>
+              Fund
+            </Button>
+            {meta?.isMultisig && (
+              <Button component={Link} sx={{ minWidth: 0 }} to={'/account-setting'} variant='outlined'>
+                <SvgIcon component={IconSet} inheritViewBox />
+              </Button>
+            )}
+          </Box>
+        </Box>
+        <Divider />
+        <Box>
+          <Grid columns={{ xs: 12 }} container spacing={2}>
+            <Grid xs={6}>
+              <Box>
+                <Typography color='text.secondary'>Total balance</Typography>
+                <Typography variant='h5'>
+                  <FormatBalance label='$' value={total} withCurrency={false} />
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid xs={6}>
+              <Box>
+                <Typography color='text.secondary'>Transferable balance</Typography>
+                <Typography variant='h5'>
+                  <FormatBalance label='$' value={transferrable} withCurrency={false} />
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid xs={6}>
+              <Box>
+                <Typography color='text.secondary'>Locked Balance</Typography>
+                <Typography variant='h5'>
+                  <FormatBalance label='$' value={locked} withCurrency={false} />
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid xs={6}>
+              <Box>
+                <Typography color='text.secondary'>Reserved balance</Typography>
+                <Typography variant='h5'>
+                  <FormatBalance label='$' value={reserved} withCurrency={false} />
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      </Stack>
+    </Paper>
+  );
+}
+
+export default React.memo(Info);
